@@ -1,486 +1,489 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Charlieplex Wiring Helper</title>
 <style>
-  :root{
-    --bg:#0b0f14;--card:#121821;--muted:#a6b6c7;--accent:#66e0c2;--accent-2:#79a8ff;
-    --text:#e9f1f7;--warn:#ffb86b;--bad:#ff6b6b;--ok:#66e08d;--border:#1f2834;
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;background:linear-gradient(180deg,#0b0f14, #0f1722 40%, #0b0f14);
-    color:var(--text); font:19px/1.65 system-ui, Segoe UI, Roboto, Inter, Arial;
-  }
-  .wrap{max-width:1000px; margin:28px auto; padding:0 16px}
-  h1{font-size:30px; margin:0 0 10px; letter-spacing:.2px}
-  p.lead{color:var(--muted); margin:0 0 20px; font-size:18px}
-  .cards{display:flex; flex-direction:column; gap:16px}
-  .card{
-    background:var(--card); border:1px solid var(--border); border-radius:16px;
-    box-shadow:0 10px 30px rgba(0,0,0,.25)
-  }
-  .card h2{
-    font-size:22px; margin:0; padding:14px 16px; border-bottom:1px solid var(--border); color:#eaf4ff
-  }
-  .card .body{padding:16px}
-  .row{display:grid; grid-template-columns:1fr; gap:10px; align-items:center; margin:10px 0}
-  label{color:var(--muted)}
-  input[type="number"], input[type="text"], textarea, select{
-    width:100%; padding:14px 16px; border-radius:12px; border:1px solid var(--border);
-    background:#0f1520; color:var(--text); outline:none; font-size:19px;
-  }
-  textarea{min-height:170px; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-  .hint{color:var(--muted); font-size:14px; margin-top:6px}
-  .btnrow{display:flex; flex-wrap:wrap; gap:12px; margin-top:12px}
-  button{
-    border:1px solid var(--border); background:#0f1a28; color:var(--text);
-    padding:12px 18px; border-radius:12px; cursor:pointer; transition:.15s transform,.15s opacity;
-    font-size:18px; font-weight:600;
-  }
-  button.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#071218; border:none}
-  button.ghost{background:transparent}
-  button:disabled{opacity:.55; cursor:not-allowed}
-  .tag{display:inline-block; padding:4px 10px; border-radius:999px; font-size:14px; border:1px solid var(--border); color:var(--muted)}
-  .ok{color:var(--ok)} .bad{color:var(--bad)} .warn{color:var(--warn)}
-  .pairs{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:8px}
-  .pair{padding:10px 12px; border:1px dashed var(--border); border-radius:10px; background:#0e1622; font-size:18px; font-weight:600}
-  .pair.used{opacity:.5; background:#0b111a}
-  .flex{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
-  .pill{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:#0e1622; border:1px solid var(--border); font-size:16px}
-  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-  .list{max-height:240px; overflow:auto; border:1px solid var(--border); border-radius:10px; padding:8px; background:#0e1622}
-  .list div{padding:7px 8px; border-bottom:1px dashed #162233}
-  .list div:last-child{border-bottom:0}
-  .inline{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+:root{
+  --bg:#0b0f14;--card:#121821;--muted:#a6b6c7;--accent:#66e0c2;--accent-2:#79a8ff;
+  --text:#e9f1f7;--warn:#ffb86b;--bad:#ff6b6b;--ok:#66e08d;--border:#1f2834;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:linear-gradient(180deg,#0b0f14,#0f1722 40%,#0b0f14);
+  color:var(--text);font:19px/1.65 system-ui,Segoe UI,Roboto,Inter,Arial;
+}
+.wrap{max-width:1000px;margin:28px auto;padding:0 16px}
+h1{font-size:30px;margin:0 0 10px}
+p.lead{color:var(--muted);margin:0 0 20px;font-size:18px}
+.cards{display:flex;flex-direction:column;gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.card h2{font-size:22px;margin:0;padding:14px 16px;border-bottom:1px solid var(--border);color:#eaf4ff}
+.card .body{padding:16px}
+label{color:var(--muted)}
+.row{display:grid;grid-template-columns:1fr;gap:10px;margin:10px 0}
+input[type="number"],input[type="text"],textarea,select{
+  width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--border);
+  background:#0f1520;color:var(--text);outline:none;font-size:19px;
+}
+textarea{min-height:180px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.btnrow{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
+button{
+  border:1px solid var(--border);background:#0f1a28;color:var(--text);
+  padding:12px 18px;border-radius:12px;cursor:pointer;transition:.15s transform,.15s opacity;
+  font-size:18px;font-weight:600;
+}
+button.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#071218;border:none}
+button.ghost{background:transparent}
+button:disabled{opacity:.55;cursor:not-allowed}
+.hint{color:var(--muted);font-size:14px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:#0e1622;border:1px solid var(--border);font-size:16px}
+.pairs{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}
+.pair{padding:10px 12px;border:1px dashed var(--border);border-radius:10px;background:#0e1622;font-size:18px;font-weight:600}
+.pair.used{opacity:.5;background:#0b111a}
+.list{max-height:240px;overflow:auto;border:1px solid var(--border);border-radius:10px;padding:8px;background:#0e1622}
+.list div{padding:7px 8px;border-bottom:1px dashed #162233}
+.list div:last-child{border-bottom:0}
+.inline{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.tag{display:inline-block;padding:4px 10px;border-radius:999px;border:1px solid var(--border);color:var(--muted);font-size:14px}
+.tag.ok{color:var(--ok);border-color:#234b33}
+.tag.bad{color:var(--bad);border-color:#4b2323}
+.sep{height:1px;background:#1f2834;margin:12px 0}
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>Charlieplex Wiring Helper</h1>
-  <p class="lead">Guide step-by-step wiring of charlieplexed LEDs and export Arduino arrays. Labels match your boards: <span class="mono">(pinA,pinB) – (+,−)</span>.</p>
+  <p class="lead">Default segments for jacket wiring are preloaded (NECK, SHOULDERS, CHESTS).</p>
 
   <div class="cards">
-    <!-- 1) Setup -->
-    <div class="card">
-      <h2>1) Setup</h2>
-      <div class="body">
-        <div class="row">
-          <label for="numLeds">How many LEDs will be wired?</label>
-          <input id="numLeds" type="number" min="1" value="13" />
-          <div class="inline">
-            <span class="tag">Minimum pins needed: <b id="minPins">—</b></span>
-            <span class="hint">Rule: <span class="mono">N × (N − 1) ≥ LEDs</span></span>
-            <button id="recalc" class="ghost">Recalculate</button>
-          </div>
-        </div>
-
-        <div class="row">
-          <label for="pins">Arduino pins to use (comma-separated, in labeled order)</label>
-          <input id="pins" type="text" placeholder="e.g. 2,3,4,5,6,7" value="2,3,4,5,6,7" />
-          <div class="hint">Order defines <span class="mono">PINS[]</span> and the indices used by <span class="mono">LED_MAP[]</span>.</div>
-        </div>
-
-        <div class="btnrow">
-          <button id="start" class="primary">Start Wiring Wizard</button>
-          <button id="clearAll" class="ghost">Reset</button>
-        </div>
+    <!-- Setup -->
+    <div class="card"><h2>1) Setup</h2><div class="body">
+      <div class="row">
+        <label for="numLeds">Number of LEDs to wire</label>
+        <input id="numLeds" type="number" min="1" value="20">
       </div>
-    </div>
-
-    <!-- 2) All valid pairs (for reference) -->
-    <div class="card">
-      <h2>2) All Valid Ordered Pairs (hi→lo)</h2>
-      <div class="body">
-        <div class="hint">Direction matters. Format: <span class="mono">(hiPin,loPin) – (+,−)</span></div>
-        <div id="pairContainer" class="pairs" style="margin-top:10px"></div>
-      </div>
-    </div>
-
-    <!-- 3) Wizard -->
-    <div class="card">
-      <h2>3) Wiring Wizard</h2>
-      <div class="body">
+      <div class="row">
+        <label for="pins">Arduino pins (comma-separated)</label>
+        <input id="pins" type="text" value="2,3,4,5,6,7">
         <div class="inline">
-          <div class="pill"><b>Status:</b> <span id="statusText">Not started</span></div>
-          <div class="pill"><b>LEDs wired:</b> <span id="wiredCount">0</span>/<span id="targetCount">0</span></div>
-        </div>
-
-        <div id="wizardPanel" style="margin-top:14px; display:none">
-          <div class="inline" style="gap:16px">
-            <div class="pill"><b>Suggested pair:</b> <span id="suggestPair">—</span></div>
-            <div class="pill"><b>LED index:</b> <span id="ledIndex">—</span></div>
-            <div class="inline">
-              <label for="ledRole"><b>Role:</b></label>
-              <select id="ledRole" title="Pick the role of this LED">
-                <option value="HEART">HEART</option>
-                <option value="PATH_L">PATH_L (left branch)</option>
-                <option value="PATH_R">PATH_R (right branch)</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="btnrow">
-            <button id="accept" class="primary">Accept (I wired this)</button>
-            <button id="pickOther">Pick another pair…</button>
-            <button id="undo" class="ghost">Undo last</button>
-            <button id="finish" class="ghost">Finish early</button>
-          </div>
-
-          <div id="picker" style="display:none; margin-top:10px">
-            <label>Choose a different pair (unused only):</label>
-            <select id="pairSelect"></select>
-            <div class="btnrow">
-              <button id="useSelected" class="primary">Use selected</button>
-              <button id="cancelPick" class="ghost">Cancel</button>
-            </div>
-          </div>
-
-          <div class="hint" style="margin-top:8px">
-            Tip: If a suggested pair is awkward on fabric, click “Pick another pair…” and choose any unused (hi→lo).
-          </div>
+          <span id="capacityTag" class="tag">Capacity: —</span>
+          <span class="hint">Max routable LEDs with N pins = <span class="mono">N × (N − 1)</span></span>
+          <button id="recalc" class="ghost">Recalculate</button>
         </div>
       </div>
-    </div>
+      <div class="btnrow">
+        <button id="start" class="primary">Start Wizard</button>
+        <button id="clearAll" class="ghost">Reset</button>
+      </div>
+    </div></div>
 
-    <!-- 4) Groups & Output -->
-    <div class="card">
-      <h2>4) Code Output</h2>
-      <div class="body">
-        <div class="row">
-          <label>Generated Arduino arrays:</label>
-          <textarea id="codeOut" readonly placeholder="// Arrays will appear here after you finish or click Generate."></textarea>
+    <!-- Segments -->
+    <div class="card"><h2>2) Segments</h2><div class="body">
+      <div class="row">
+        <label>Add new segment</label>
+        <div class="inline">
+          <input id="segName" type="text" placeholder="Name (e.g. ARM)">
+          <select id="segParent"></select>
+          <button id="addSeg" class="primary">Add</button>
+        </div>
+      </div>
+      <div class="hint">Defaults: NECK_L→SHOULDER_L→CHEST_L and NECK_R→SHOULDER_R→CHEST_R. Roots start right after the HEART.</div>
+      <div id="segList" class="list" style="margin-top:10px"></div>
+    </div></div>
+
+    <!-- All pairs -->
+    <div class="card"><h2>3) All Pairs</h2><div class="body">
+      <div class="hint">Format: <span class="mono">(hiPin,loPin) – (+,−)</span></div>
+      <div id="pairContainer" class="pairs"></div>
+    </div></div>
+
+    <!-- Wizard -->
+    <div class="card"><h2>4) Wiring Wizard</h2><div class="body">
+      <div class="inline">
+        <div class="pill"><b>Status:</b> <span id="statusText">Not started</span></div>
+        <div class="pill"><b>LEDs:</b> <span id="wiredCount">0</span>/<span id="targetCount">0</span></div>
+        <div class="pill"><b>Capacity:</b> <span id="capNow">0</span></div>
+        <div class="pill"><b>Remaining:</b> <span id="remain">0</span></div>
+        <div class="pill"><b>Segment:</b> <span id="currentSegLabel">—</span></div>
+      </div>
+
+      <div id="wizardPanel" style="margin-top:14px;display:none">
+        <div class="inline">
+          <div class="pill"><b>Pair:</b> <span id="suggestPair">—</span></div>
+          <div class="pill"><b>LED index:</b> <span id="ledIndex">—</span></div>
+          <label class="inline" style="margin-left:auto"><input type="checkbox" id="isHeart"> Mark as HEART</label>
         </div>
 
         <div class="btnrow">
-          <button id="exportCode" class="primary">Generate Arduino Arrays</button>
-          <button id="copyCode">Copy to Clipboard</button>
-          <button id="downloadJson" class="ghost">Download JSON</button>
+          <button id="accept" class="primary">Accept</button>
+          <button id="pickOther">Pick other</button>
+          <button id="undo" class="ghost">Undo</button>
+          <button id="finish" class="ghost">Finish</button>
         </div>
 
-        <div style="margin-top:12px">
-          <label>Wiring log (in order):</label>
-          <div id="log" class="list"></div>
+        <div id="picker" style="display:none;margin-top:10px">
+          <select id="pairSelect"></select>
+          <div class="btnrow">
+            <button id="useSelected" class="primary">Use</button>
+            <button id="cancelPick" class="ghost">Cancel</button>
+          </div>
         </div>
+
+        <div class="sep"></div>
+        <div class="inline">
+          <label for="setCurrentSeg">Change current segment:</label>
+          <select id="setCurrentSeg"></select>
+          <button id="useSeg" class="ghost">Use</button>
+        </div>
+        <div class="inline">
+          <label for="segDir"><b>Segment direction:</b></label>
+          <select id="segDir">
+            <option value="from">From HEART → out</option>
+            <option value="to">Towards HEART ←</option>
+          </select>
+          <button id="applySegDir" class="ghost">Apply</button>
+        </div>
+
+        <div id="log" class="list" style="margin-top:10px"></div>
       </div>
-    </div>
+    </div></div>
+
+    <!-- Export -->
+    <div class="card"><h2>5) Export</h2><div class="body">
+      <textarea id="codeOut" readonly placeholder="// Arduino arrays will appear here"></textarea>
+      <div class="btnrow">
+        <button id="exportCode" class="primary">Generate</button>
+        <button id="copyCode">Copy</button>
+      </div>
+      <div class="hint">Paste the arrays into your branching sketch (PINS, LED_MAP, HEART, segments, enum, CHILDREN, SEGMENTS, ROOTS).</div>
+    </div></div>
   </div>
 </div>
 
 <script>
 (function(){
-  const $ = sel => document.querySelector(sel);
+  const $=s=>document.querySelector(s);
 
-  // Elements
-  const numLeds = $('#numLeds');
-  const minPins = $('#minPins');
-  const pinsInput = $('#pins');
-  const recalc = $('#recalc');
-  const startBtn = $('#start');
-  const clrBtn = $('#clearAll');
+  // --- State ---
+  let pins=[], orderedPairs=[], chosen=[], segments=[], currentSegId=null;
+  let capacity=0, target=0;
 
-  const pairContainer = $('#pairContainer');
-
-  const statusText = $('#statusText');
-  const wiredCount = $('#wiredCount');
-  const targetCount = $('#targetCount');
-
-  const wizardPanel = $('#wizardPanel');
-  const suggestPair = $('#suggestPair');
-  const ledIndex = $('#ledIndex');
-  const ledRole = $('#ledRole');
-
-  const acceptBtn = $('#accept');
-  const pickOtherBtn = $('#pickOther');
-  const undoBtn = $('#undo');
-  const finishBtn = $('#finish');
-
-  const picker = $('#picker');
-  const pairSelect = $('#pairSelect');
-  const useSelected = $('#useSelected');
-  const cancelPick = $('#cancelPick');
-
-  const exportCode = $('#exportCode');
-  const copyCode = $('#copyCode');
-  const downloadJson = $('#downloadJson');
-  const codeOut = $('#codeOut');
-  const logDiv = $('#log');
-
-  // State
-  let targetLEDs = 0;
-  let pins = [];
-  let orderedPairs = []; // {hiIdx, loIdx, label, used}
-  let chosen = [];       // array of {hiIdx, loIdx, role}
-  let nextSuggestionIdx = 0;
-
-  function calcMinPins(leds){
-    let n=1;
-    while(n*(n-1) < leds) n++;
-    return n;
+  // Preload defaults (NECK/SHOULDER/CHEST)
+  function loadDefaults(){
+    segments=[
+      {id:1,name:"NECK_L",parentId:null,children:[2],leds:[],fromHeart:true},
+      {id:2,name:"SHOULDER_L",parentId:1,children:[3],leds:[],fromHeart:true},
+      {id:3,name:"CHEST_L",parentId:2,children:[],leds:[],fromHeart:true},
+      {id:4,name:"NECK_R",parentId:null,children:[5],leds:[],fromHeart:true},
+      {id:5,name:"SHOULDER_R",parentId:4,children:[6],leds:[],fromHeart:true},
+      {id:6,name:"CHEST_R",parentId:5,children:[],leds:[],fromHeart:true}
+    ];
+    currentSegId = 1;
   }
+  loadDefaults();
 
+  // --- Elements ---
+  const numLeds=$('#numLeds'), pinsInput=$('#pins'), recalc=$('#recalc'), capacityTag=$('#capacityTag');
+  const startBtn=$('#start'), clrBtn=$('#clearAll');
+
+  const segName=$('#segName'), segParent=$('#segParent'), addSeg=$('#addSeg'), segList=$('#segList');
+
+  const pairContainer=$('#pairContainer');
+
+  const statusText=$('#statusText'), wiredCount=$('#wiredCount'), targetCount=$('#targetCount'), capNow=$('#capNow'), remain=$('#remain');
+  const wizardPanel=$('#wizardPanel'), suggestPair=$('#suggestPair'), ledIndex=$('#ledIndex'), isHeart=$('#isHeart');
+  const acceptBtn=$('#accept'), pickOtherBtn=$('#pickOther'), undoBtn=$('#undo'), finishBtn=$('#finish');
+  const picker=$('#picker'), pairSelect=$('#pairSelect'), useSelected=$('#useSelected'), cancelPick=$('#cancelPick');
+
+  const currentSegLabel=$('#currentSegLabel'), setCurrentSeg=$('#setCurrentSeg'), useSeg=$('#useSeg');
+  const segDir=$('#segDir'), applySegDir=$('#applySegDir');
+
+  const logDiv=$('#log');
+  const exportCode=$('#exportCode'), copyCode=$('#copyCode'), codeOut=$('#codeOut');
+
+  // --- Capacity helpers ---
   function parsePins(){
-    const arr = pinsInput.value.split(',').map(s => s.trim()).filter(Boolean);
-    const uniq = [];
-    for(const v of arr){
-      if(!/^-?\d+$/.test(v)) continue;
-      const num = parseInt(v,10);
-      if(!uniq.includes(num)) uniq.push(num);
-    }
-    return uniq;
+    return pinsInput.value.split(',').map(s=>parseInt(s.trim(),10)).filter(x=>!isNaN(x));
   }
+  function updateCapacityTag(){
+    const p = parsePins();
+    const cap = p.length * (p.length - 1);
+    capacity = cap;
+    capacityTag.textContent = `Capacity with ${p.length} pins: ${cap}`;
+    capacityTag.className = 'tag ' + ((parseInt(numLeds.value,10)||0) <= cap ? 'ok' : 'bad');
+  }
+  recalc.onclick = updateCapacityTag;
+  pinsInput.addEventListener('input', updateCapacityTag);
+  numLeds.addEventListener('input', updateCapacityTag);
+  updateCapacityTag();
 
+  // --- Segments UI ---
+  function renderSegList(){
+    segList.innerHTML='';
+    segments.forEach(s=>{
+      const parent = s.parentId ? (segments.find(x=>x.id===s.parentId)?.name) : '—';
+      const dir = s.fromHeart ? 'HEART → out' : '← towards HEART';
+      const row=document.createElement('div');
+      row.innerHTML = `<b>${s.name}</b>  |  Parent: ${parent}  |  Dir: ${dir}  |  LEDs: [${s.leds.join(', ')}]`;
+      segList.appendChild(row);
+    });
+    segParent.innerHTML = '<option value="">(no parent)</option>' +
+      segments.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
+    setCurrentSeg.innerHTML = segments.map(s=>`<option value="${s.id}" ${s.id===currentSegId?'selected':''}>${s.name}</option>`).join('');
+    currentSegLabel.textContent = segments.find(x=>x.id===currentSegId)?.name || '—';
+  }
+  renderSegList();
+
+  // --- Pairs ---
   function buildPairs(){
-    orderedPairs = [];
+    orderedPairs=[];
     for(let i=0;i<pins.length;i++){
       for(let j=0;j<pins.length;j++){
         if(i===j) continue;
-        const label = `(${i},${j}) – (+,−)`; // match board silkscreen
-        orderedPairs.push({hiIdx:i, loIdx:j, label, used:false});
+        orderedPairs.push({hiIdx:i,loIdx:j,label:`(${i},${j}) – (+,−)`,used:false});
       }
     }
     renderPairs();
-    populatePairSelect();
   }
-
   function renderPairs(){
-    pairContainer.innerHTML = '';
-    for(const p of orderedPairs){
-      const el = document.createElement('div');
-      el.className = 'pair' + (p.used?' used':'');
-      el.textContent = p.label;
-      pairContainer.appendChild(el);
-    }
-  }
-
-  function populatePairSelect(){
-    pairSelect.innerHTML = '';
-    const unused = orderedPairs.filter(p=>!p.used);
-    for(const p of unused){
-      const opt = document.createElement('option');
-      opt.value = `${p.hiIdx},${p.loIdx}`;
-      opt.textContent = p.label;
-      pairSelect.appendChild(opt);
-    }
-  }
-
-  function recalcUI(){
-    const leds = parseInt(numLeds.value,10)||0;
-    minPins.textContent = calcMinPins(leds);
-  }
-
-  function resetAll(){
-    targetLEDs = 0; pins = []; orderedPairs = []; chosen = []; nextSuggestionIdx = 0;
-    statusText.textContent = 'Not started';
-    wiredCount.textContent = '0'; targetCount.textContent = '0';
-    wizardPanel.style.display = 'none';
-    suggestPair.textContent = '—'; ledIndex.textContent = '—';
-    pairContainer.innerHTML = '';
-    picker.style.display = 'none';
-    codeOut.value = '';
-    logDiv.innerHTML = '';
-    ledRole.value = 'HEART';
-    recalcUI();
-  }
-
-  function startWizard(){
-    targetLEDs = parseInt(numLeds.value,10)||0;
-    if(targetLEDs<=0){ alert('Enter a valid number of LEDs.'); return; }
-    const nMin = calcMinPins(targetLEDs);
-    pins = parsePins();
-    if(pins.length < nMin){
-      alert(`You need at least ${nMin} pins for ${targetLEDs} LEDs (N×(N−1) ≥ LEDs).\nCurrently you entered ${pins.length}.`);
-      return;
-    }
-    if(pins.length < 2){ alert('Need at least 2 pins.'); return; }
-
-    buildPairs();
-    chosen = [];
-    nextSuggestionIdx = 0;
-    statusText.textContent = 'In progress';
-    wiredCount.textContent = '0'; targetCount.textContent = String(targetLEDs);
-    wizardPanel.style.display = '';
-    picker.style.display = 'none';
-    ledIndex.textContent = '0';
-    suggestNext();
-    appendLog('Wizard started.');
-  }
-
-  function suggestNext(){
-    // Find the next unused pair
-    let p = null;
-    for(let k=0;k<orderedPairs.length;k++){
-      const idx = (nextSuggestionIdx + k) % orderedPairs.length;
-      if(!orderedPairs[idx].used){ p = orderedPairs[idx]; nextSuggestionIdx = idx; break; }
-    }
-    if(!p){
-      suggestPair.textContent = 'No unused pairs left.';
-      acceptBtn.disabled = true;
-      pickOtherBtn.disabled = true;
-      return;
-    }
-    suggestPair.textContent = p.label;
-    acceptBtn.disabled = false;
-    pickOtherBtn.disabled = false;
-  }
-
-  function markUsed(hiIdx, loIdx){
-    const item = orderedPairs.find(q => q.hiIdx===hiIdx && q.loIdx===loIdx);
-    if(item){ item.used = true; }
-    renderPairs();
-    populatePairSelect();
-  }
-
-  function markUnused(hiIdx, loIdx){
-    const item = orderedPairs.find(q => q.hiIdx===hiIdx && q.loIdx===loIdx);
-    if(item){ item.used = false; }
-    renderPairs();
-    populatePairSelect();
-  }
-
-  function acceptCurrent(){
-    const p = orderedPairs[nextSuggestionIdx];
-    if(!p || p.used) { suggestNext(); return; }
-    const role = ledRole.value;
-    chosen.push({hiIdx:p.hiIdx, loIdx:p.loIdx, role});
-    markUsed(p.hiIdx, p.loIdx);
-    appendLog(`LED ${chosen.length-1}: (${p.hiIdx},${p.loIdx}) – (+,−)  [${role}]`);
-    wiredCount.textContent = String(chosen.length);
-    if(chosen.length >= targetLEDs){
-      finishWizard(); return;
-    }
-    ledIndex.textContent = String(chosen.length);
-    nextSuggestionIdx = (nextSuggestionIdx + 1) % orderedPairs.length;
-    suggestNext();
-  }
-
-  function pickOther(){
-    picker.style.display = '';
-    populatePairSelect();
-  }
-
-  function useSelectedPair(){
-    const val = pairSelect.value;
-    if(!val) return;
-    const [hiIdx, loIdx] = val.split(',').map(x=>parseInt(x,10));
-    const already = chosen.find(c => c.hiIdx===hiIdx && c.loIdx===loIdx);
-    if(already){ alert('That pair is already chosen.'); return; }
-    const role = ledRole.value;
-    chosen.push({hiIdx, loIdx, role});
-    markUsed(hiIdx, loIdx);
-    appendLog(`LED ${chosen.length-1}: (${pins[hiIdx]},${pins[loIdx]}) – (+,−)  [${role}]`);
-    wiredCount.textContent = String(chosen.length);
-    picker.style.display = 'none';
-    if(chosen.length >= targetLEDs){
-      finishWizard(); return;
-    }
-    ledIndex.textContent = String(chosen.length);
-    suggestNext();
-  }
-
-  function undo(){
-    if(chosen.length===0) return;
-    const last = chosen.pop();
-    markUnused(last.hiIdx, last.loIdx);
-    appendLog(`Undo LED ${chosen.length} (freed (${pins[last.hiIdx]},${pins[last.loIdx]}) – (+,−) [${last.role}])`);
-    wiredCount.textContent = String(chosen.length);
-    ledIndex.textContent = String(chosen.length);
-    suggestNext();
-  }
-
-  function finishWizard(){
-    statusText.textContent = 'Finished';
-    wizardPanel.style.display = '';
-    acceptBtn.disabled = true;
-    pickOtherBtn.disabled = true;
-    appendLog('Wizard finished.');
-    generateCode();
+    pairContainer.innerHTML = orderedPairs.map(p=>`<div class="pair${p.used?' used':''}">${p.label}</div>`).join('');
   }
 
   function appendLog(msg){
-    const row = document.createElement('div');
-    row.textContent = msg;
-    logDiv.appendChild(row);
-    logDiv.scrollTop = logDiv.scrollHeight;
+    const d=document.createElement('div'); d.textContent=msg;
+    logDiv.appendChild(d); logDiv.scrollTop=logDiv.scrollHeight;
   }
 
-  function generateCode(){
-    // Build PINS array
+  // --- Start / Reset ---
+  startBtn.onclick=()=>{
+    pins = parsePins();
+    if(pins.length<2){ alert('Enter at least two pins.'); return; }
+    target = parseInt(numLeds.value,10)||0;
+    const maxLed = pins.length * (pins.length - 1);
+    if(target <= 0){ alert('Enter a valid LED count.'); return; }
+    if(target > maxLed){
+      alert(`Too many LEDs for ${pins.length} pins.\nMax routable = ${maxLed} (N×(N−1)).`);
+      return;
+    }
+    buildPairs();
+    chosen=[];
+    statusText.textContent='In progress';
+    targetCount.textContent = String(target);
+    capNow.textContent = String(maxLed);
+    remain.textContent = String(maxLed - chosen.length);
+    wizardPanel.style.display='block';
+    renderSegList();
+    suggestNext();
+  };
+
+  clrBtn.onclick=()=>{ location.reload(); };
+
+  // --- Add Segment ---
+  addSeg.onclick=()=>{
+    const name=(segName.value||'').trim();
+    if(!name){ alert('Enter a segment name.'); return; }
+    if(segments.some(s=>s.name.toLowerCase()===name.toLowerCase())){ alert('Name already exists.'); return; }
+    const parentVal = segParent.value;
+    const id = segments.length ? Math.max(...segments.map(s=>s.id))+1 : 1;
+    const parentId = parentVal ? parseInt(parentVal,10) : null;
+    const seg={id,name,parentId,children:[],leds:[],fromHeart:true};
+    segments.push(seg);
+    if(parentId){ const p=segments.find(s=>s.id===parentId); p.children.push(id); }
+    if(!currentSegId) currentSegId=id;
+    segName.value='';
+    renderSegList();
+  };
+
+  useSeg.onclick=()=>{
+    const v=setCurrentSeg.value;
+    if(!v) return;
+    currentSegId=parseInt(v,10);
+    renderSegList();
+  };
+
+  applySegDir.onclick=()=>{
+    if(!currentSegId){ alert('Select a segment first.'); return; }
+    const s=segments.find(x=>x.id===currentSegId);
+    s.fromHeart = (segDir.value==='from');
+    renderSegList();
+  };
+
+  // --- Wizard flow ---
+  function suggestNext(){
+    const p = orderedPairs.find(p=>!p.used);
+    suggestPair.textContent = p ? p.label : 'No unused pairs left.';
+    ledIndex.textContent = String(chosen.length);
+  }
+
+  function markUsed(h,l,u){ const it=orderedPairs.find(p=>p.hiIdx===h&&p.loIdx===l); if(it){ it.used=u; renderPairs(); } }
+
+  function addChoice(h,l,heart){
+    // capacity guard
+    const maxLed = pins.length * (pins.length - 1);
+    if(chosen.length >= maxLed){
+      alert('You reached the maximum routable LEDs for your pin count.');
+      return;
+    }
+    const idx=chosen.length;
+    chosen.push(heart?{hiIdx:h,loIdx:l,kind:'HEART'}:{hiIdx:h,loIdx:l,kind:'SEG',segId:currentSegId});
+    if(!heart){
+      const s=segments.find(x=>x.id===currentSegId);
+      if(s) s.leds.push(idx);
+    }
+    markUsed(h,l,true);
+    appendLog(`LED ${idx}: (${h},${l}) – (+,−)  [${heart?'HEART':(segments.find(x=>x.id===currentSegId)?.name||'?')}]`);
+    wiredCount.textContent=String(chosen.length);
+    remain.textContent = String(maxLed - chosen.length);
+    suggestNext();
+
+    // stop auto-wiring if target reached
+    if(chosen.length >= target){
+      statusText.textContent = 'Target reached';
+    }
+  }
+
+  acceptBtn.onclick=()=>{
+    const maxLed = pins.length*(pins.length-1);
+    if(chosen.length >= maxLed){ alert('Capacity reached for current pins.'); return; }
+    const p=orderedPairs.find(p=>!p.used);
+    if(!p){ alert('No unused pairs left.'); return; }
+    if(!isHeart.checked && !currentSegId){ alert('Choose a segment or mark as HEART.'); return; }
+    addChoice(p.hiIdx,p.loIdx,isHeart.checked);
+    isHeart.checked=false;
+  };
+
+  pickOtherBtn.onclick=()=>{
+    const maxLed = pins.length*(pins.length-1);
+    if(chosen.length >= maxLed){ alert('Capacity reached for current pins.'); return; }
+    picker.style.display='block';
+    pairSelect.innerHTML = orderedPairs.filter(p=>!p.used).map(p=>`<option value="${p.hiIdx},${p.loIdx}">${p.label}</option>`).join('');
+  };
+  cancelPick.onclick=()=>{ picker.style.display='none'; };
+
+  useSelected.onclick=()=>{
+    const maxLed = pins.length*(pins.length-1);
+    if(chosen.length >= maxLed){ alert('Capacity reached for current pins.'); picker.style.display='none'; return; }
+    const val=pairSelect.value; if(!val) return;
+    const [h,l]=val.split(',').map(x=>parseInt(x,10));
+    if(!isHeart.checked && !currentSegId){ alert('Choose a segment or mark as HEART.'); return; }
+    addChoice(h,l,isHeart.checked);
+    isHeart.checked=false;
+    picker.style.display='none';
+  };
+
+  undoBtn.onclick=()=>{
+    if(!chosen.length) return;
+    const last = chosen.pop();
+    markUsed(last.hiIdx,last.loIdx,false);
+    if(last.kind==='SEG'){
+      const s=segments.find(x=>x.id===last.segId);
+      if(s) s.leds = s.leds.filter(i=>i!==chosen.length);
+    }
+    wiredCount.textContent=String(chosen.length);
+    const maxLed = pins.length*(pins.length-1);
+    remain.textContent = String(maxLed - chosen.length);
+    appendLog(`Undo LED ${chosen.length}`);
+    suggestNext();
+    renderSegList();
+    statusText.textContent='In progress';
+  };
+
+  finishBtn.onclick=()=>{ statusText.textContent='Finished'; };
+
+  // --- Export ---
+  function sanitizeName(n){
+    return n.trim().replace(/[^A-Za-z0-9_]/g,'_').replace(/^[^A-Za-z_]+/,'').toUpperCase() || 'SEG';
+  }
+
+  exportCode.onclick=()=>{
+    if(pins.length<2 || chosen.length===0){ alert('Please wire at least one LED first.'); return; }
+
+    // PINS
     const pinsArr = pins.map(x=>x|0);
 
-    // LED_MAP in wired order
-    const ledMapLines = chosen.map(p => `{${p.hiIdx}, ${p.loIdx}}`);
+    // LED_MAP
+    const ledMapLines = chosen.map(p=>`{${p.hiIdx}, ${p.loIdx}}`);
 
-    // Groups derived from 'chosen' order
-    const heart = []; const pathL = []; const pathR = [];
-    for(let i=0;i<chosen.length;i++){
-      const r = chosen[i].role;
-      if(r === 'HEART') heart.push(i);
-      else if(r === 'PATH_L') pathL.push(i);
-      else if(r === 'PATH_R') pathR.push(i);
-    }
+    // HEART indices
+    const heart = [];
+    chosen.forEach((c,i)=>{ if(c.kind==='HEART') heart.push(i); });
+
+    // Enum index map
+    const enumIndex = new Map();
+    segments.forEach((s,idx)=>enumIndex.set(s.id, idx));
+
+    // Children flattened
+    const childrenFlat = [];
+    const childStart = new Map();
+    const childCount = new Map();
+    segments.forEach(s=>{
+      childStart.set(s.id, childrenFlat.length);
+      (s.children||[]).forEach(cid=>childrenFlat.push(enumIndex.get(cid)));
+      childCount.set(s.id, (s.children||[]).length);
+    });
+
+    // Segment arrays (oriented HEART -> out)
+    const segNames = segments.map(s=>sanitizeName(s.name));
+    const segArrays = segments.map((s,i)=>{
+      const oriented = s.fromHeart ? s.leds.slice() : s.leds.slice().reverse();
+      return `const uint8_t SEG_${segNames[i]}[] = { ${oriented.join(', ')} };`;
+    });
+
+    const segTableLines = segments.map((s,i)=>{
+      const cs = childStart.get(s.id);
+      const cc = childCount.get(s.id);
+      return `  /* S_${segNames[i]} */ { SEG_${segNames[i]}, (uint8_t)sizeof(SEG_${segNames[i]}), ${cs}, ${cc} }`;
+    });
+
+    const roots = segments.filter(s=>!s.parentId).map(s=>'S_'+sanitizeName(s.name));
 
     const code =
-`// ---- Generated by Charlieplex Wiring Helper (Dual Branch) ----
+`// ---- Generated by Charlieplex Wiring Helper ----
 const uint8_t PINS[] = { ${pinsArr.join(', ')} };
 const uint8_t N_PINS = sizeof(PINS);
 
-// Each LED maps to an ordered pair of indices into PINS[] (hi -> lo)
 struct Pair { uint8_t hi; uint8_t lo; };
 const Pair LED_MAP[] = {
   ${ledMapLines.join(',\n  ')}
 };
 const uint8_t N_LEDS = sizeof(LED_MAP)/sizeof(LED_MAP[0]);
 
-// Groups (indices refer to LED order above)
-const uint8_t HEART[]  = { ${heart.join(', ')} };
-const uint8_t HEART_N  = sizeof(HEART);
+// HEART LEDs (indices refer to LED order above)
+const uint8_t HEART[] = { ${heart.join(', ')} };
+const uint8_t HEART_N = sizeof(HEART);
 
-const uint8_t PATH_L[] = { ${pathL.join(', ')} };
-const uint8_t PATH_L_N = sizeof(PATH_L);
+// ---- Branching segments (exported in pulse direction: HEART -> out) ----
+${segArrays.join('\n')}
 
-const uint8_t PATH_R[] = { ${pathR.join(', ')} };
-const uint8_t PATH_R_N = sizeof(PATH_R);
+enum {
+  ${segments.map(s=>'S_'+sanitizeName(s.name)).join(', ')},
+  S_COUNT
+};
+
+// Child links (indices into enum)
+const uint8_t CHILDREN[] = { ${childrenFlat.join(', ')} };
+
+struct Segment { const uint8_t* leds; uint8_t len; uint8_t child_start; uint8_t child_count; };
+
+const Segment SEGMENTS[S_COUNT] = {
+${segTableLines.join(',\n')}
+};
+
+// Root segments (start after heartbeat)
+const uint8_t ROOTS[] = { ${roots.join(', ')} };
+const uint8_t ROOTS_N = sizeof(ROOTS);
 `;
+
     codeOut.value = code;
-  }
+  };
 
-  function copyToClipboard(text){
-    navigator.clipboard?.writeText(text).then(()=>{},()=>{});
-  }
+  copyCode.onclick=()=>{ navigator.clipboard?.writeText(codeOut.value); };
 
-  function download(filename, text){
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob([text], {type:'application/json'}));
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(a.href);
-  }
-
-  // Events
-  recalc.addEventListener('click', recalcUI);
-  startBtn.addEventListener('click', startWizard);
-  clrBtn.addEventListener('click', resetAll);
-
-  acceptBtn.addEventListener('click', acceptCurrent);
-  pickOtherBtn.addEventListener('click', pickOther);
-  undoBtn.addEventListener('click', undo);
-  finishBtn.addEventListener('click', finishWizard);
-
-  useSelected.addEventListener('click', useSelectedPair);
-  cancelPick.addEventListener('click', ()=> picker.style.display='none');
-
-  exportCode.addEventListener('click', generateCode);
-  copyCode.addEventListener('click', ()=> copyToClipboard(codeOut.value));
-  downloadJson.addEventListener('click', ()=>{
-    const data = { pins, targetLEDs, chosen };
-    download('charlieplex_wiring.json', JSON.stringify(data, null, 2));
-  });
-
-  // Init
-  recalcUI();
+  // initial renders
+  renderSegList();
 })();
 </script>
 </body>
